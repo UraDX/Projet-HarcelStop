@@ -1,28 +1,33 @@
 import pygame
 from pygame.locals import*
 import sys
+import os
+import subprocess
 
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+current_directory = os.path.dirname(__file__)
+file_name = "IMAGE\logo.png"
+file_path = os.path.join(current_directory,file_name)
+
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Game Menu")
 
+
 def main_menu():
-    item1=pygame.Rect(200,200,200,50)
-    item2=pygame.Rect(200,270,200,50)
-    item3=pygame.Rect(200,340,200,50)
-    
+
+
     font_style=pygame.font.SysFont("chalkduster",100)
-    logo= pygame.image.load("C:\\Users\\limce\\OneDrive\\Desktop\\HarcelStop\\HarcelStop\\logo.png").convert()
-    #header=font_style.render("Main Menu", True,(255,255,0))
+    logo= pygame.image.load(file_path)
 
 
-    item1Text=font_style.render("PLAY",True,(255,255,255))
-    item2Text=font_style.render("OPTION", True,(255,255,255))
-    item3Text=font_style.render("EXIT", True,(255,255,255))
+    item1Text=font_style.render("PARTIE RAPIDE",True,(255,255,255))
+    item2Text=font_style.render("PARTIE PERSONNALISE", True,(255,255,255))
+    item3Text=font_style.render("PARAMETRE", True,(255,255,255))
+
     while True:
         for event in pygame.event.get():
             if(event.type==pygame.QUIT):
@@ -30,25 +35,23 @@ def main_menu():
                 sys.exit()
             if(event.type==pygame.MOUSEBUTTONDOWN):
                 if(event.button==1):
-                    mouse_pos=pygame.mouse.get_pos()
-                    if(item1.collidepoint(mouse_pos)):
-                        print("Playing Game")
-                    elif(item2.collidepoint(mouse_pos)):
+                    mouse_pos = pygame.mouse.get_pos()
+                    if item1Text.get_rect(topleft=(400, 400)).collidepoint(mouse_pos):
+                        subprocess.Popen(["python", "guick_game.py"])
+                        pygame.quit()
+                        sys.exit()
+                    elif item2Text.get_rect(topleft=(250, 480)).collidepoint(mouse_pos):
                         print("Game Options")
-                    elif(item3.collidepoint(mouse_pos)):
+                    elif item3Text.get_rect(topleft=(450, 560)).collidepoint(mouse_pos):
+                        subprocess.Popen(["python", "options.py"])
                         pygame.quit()
                         sys.exit()
             screen.fill((0,155,155))
-            #screen.blit(header,(215,150))
 
-            pygame.draw.rect(screen,(214,0,79),item1)
-            pygame.draw.rect(screen,(214,0,79),item2)
-            pygame.draw.rect(screen,(214,0,79),item3)
-
-            screen.blit(item1Text,(250,210))
-            screen.blit(item2Text,(220,280))
-            screen.blit(item3Text,(250,350))
-            screen.blit(logo,(250,250))
+            screen.blit(item1Text,(400,400))
+            screen.blit(item2Text,(250,480))
+            screen.blit(item3Text,(450,560))
+            screen.blit(logo,(470,20))
 
             pygame.display.flip()
 
