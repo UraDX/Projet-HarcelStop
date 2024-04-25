@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import*
-import subprocess
 import sys
 import os
+
 
 
 pygame.init()
@@ -23,7 +23,7 @@ def resize_image(image, new_width, new_height):
     return resized_image
 
 def options():
-     
+    from main import main_menu
     back_button = pygame.image.load(file_path)
     font_style=pygame.font.SysFont("chalkduster",100)
 
@@ -52,9 +52,8 @@ def options():
                     elif item4Text.get_rect(topleft=(150, 340)).collidepoint(mouse_pos):
                         print("Add Quizz")
                     elif resized_image.get_rect(topleft=(30,650)).collidepoint(mouse_pos):
-                        subprocess.Popen(["python", "main.py"])
-                        pygame.quit()
-                        sys.exit()
+                        main_menu()
+
             
             screen.fill((0,155,155))
 
@@ -67,4 +66,3 @@ def options():
 
             pygame.display.flip()
 
-options()

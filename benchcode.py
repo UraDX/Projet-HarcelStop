@@ -16,20 +16,18 @@ def create_quiz_library(file):
         else:    
             library.append(question.copy())
             question.clear()
-
     print(library)
     txtfile.close()
     return library 
 
 
 
-def show_random_quiz(list):
-    question = random.choice(list)
-    print(question)
-    return question
 
-def main():
+def game():
     quiz_list = create_quiz_library("quiz.txt")
-    show_random_quiz(quiz_list)
+    random.shuffle(quiz_list)
+    print(quiz_list)
+    print(quiz_list[0])
 
-main()
+game()
+

@@ -2,7 +2,8 @@ import pygame
 from pygame.locals import*
 import sys
 import os
-import subprocess
+from options import options
+from quick_game import number_team
 
 pygame.init()
 
@@ -37,15 +38,11 @@ def main_menu():
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
                     if item1Text.get_rect(topleft=(400, 400)).collidepoint(mouse_pos):
-                        subprocess.Popen(["python", "guick_game.py"])
-                        pygame.quit()
-                        sys.exit()
+                        number_team()
                     elif item2Text.get_rect(topleft=(250, 480)).collidepoint(mouse_pos):
                         print("Game Options")
                     elif item3Text.get_rect(topleft=(450, 560)).collidepoint(mouse_pos):
-                        subprocess.Popen(["python", "options.py"])
-                        pygame.quit()
-                        sys.exit()
+                        options()
             screen.fill((0,155,155))
 
             screen.blit(item1Text,(400,400))
@@ -56,4 +53,3 @@ def main_menu():
             pygame.display.flip()
 
 main_menu()
-
