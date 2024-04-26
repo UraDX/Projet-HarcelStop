@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import*
 import sys
 import os
-from options import options
-from quick_game import number_team
+
+
 
 pygame.init()
 
@@ -18,8 +18,11 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Game Menu")
 
 
-def main_menu():
+#MAIN_MENU a scene that showcase QUICK_GAME, CUSTOM_GAME and SETTINGS
 
+def main_menu():
+    from options import options
+    from quick_game import number_team
 
     font_style=pygame.font.SysFont("chalkduster",100)
     logo= pygame.image.load(file_path)
@@ -30,19 +33,28 @@ def main_menu():
     item3Text=font_style.render("PARAMETRE", True,(255,255,255))
 
     while True:
+
         for event in pygame.event.get():
+            
             if(event.type==pygame.QUIT):
                 pygame.quit()
                 sys.exit()
             if(event.type==pygame.MOUSEBUTTONDOWN):
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
+
+                    #IMPLEMENTED STILL NEED WORKS
                     if item1Text.get_rect(topleft=(400, 400)).collidepoint(mouse_pos):
                         number_team()
+
+                    #NOT IMPLEMENTED 
                     elif item2Text.get_rect(topleft=(250, 480)).collidepoint(mouse_pos):
-                        print("Game Options")
+                        print("CUSTOM GAME")
+                    
+                    #IMPLEMENTED STILL NEED WORKS
                     elif item3Text.get_rect(topleft=(450, 560)).collidepoint(mouse_pos):
                         options()
+            
             screen.fill((0,155,155))
 
             screen.blit(item1Text,(400,400))
@@ -52,4 +64,4 @@ def main_menu():
 
             pygame.display.flip()
 
-main_menu()
+

@@ -1,4 +1,5 @@
 import random 
+import pygame
 
 def create_quiz_library(file):
     library = []
@@ -21,6 +22,11 @@ def create_quiz_library(file):
     return library 
 
 
+def resize_image(image, new_width, new_height):
+
+    resized_image = pygame.transform.scale(image, (new_width, new_height))
+    return resized_image
+
 
 
 def game():
@@ -29,5 +35,4 @@ def game():
     print(quiz_list)
     print(quiz_list[0])
 
-game()
 

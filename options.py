@@ -17,13 +17,12 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Game Options")
 
-def resize_image(image, new_width, new_height):
 
-    resized_image = pygame.transform.scale(image, (new_width, new_height))
-    return resized_image
+#OPTIONS is a scene that showcase the configuration you can manipulate
 
 def options():
     from main import main_menu
+    from benchcode import resize_image
     back_button = pygame.image.load(file_path)
     font_style=pygame.font.SysFont("chalkduster",100)
 
@@ -43,14 +42,23 @@ def options():
             if(event.type==pygame.MOUSEBUTTONDOWN):
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
+
+                    #Need to implement a SFX Volume Bar aswell as get some SFX
                     if item1Text.get_rect(topleft=(150, 100)).collidepoint(mouse_pos):
                         print("SFX Volume")
+                    
+                    #Need to implement a BGM Volume Bar aswell as get some BGM
                     elif item2Text.get_rect(topleft=(150, 180)).collidepoint(mouse_pos):
                         print("BGM Volume")
+
+                    #Need to implement a VO Volume Bar aswell as get some VO
                     elif item3Text.get_rect(topleft=(150, 260)).collidepoint(mouse_pos):
                         print("VO Volume")
+
+                    #Need to implement a Add Quiz section that opens a text file and merge it together or just open a txt
                     elif item4Text.get_rect(topleft=(150, 340)).collidepoint(mouse_pos):
-                        print("Add Quizz")
+                        print("Add Quiz")
+
                     elif resized_image.get_rect(topleft=(30,650)).collidepoint(mouse_pos):
                         main_menu()
 

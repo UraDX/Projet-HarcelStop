@@ -1,7 +1,7 @@
 import pygame
 import subprocess
-import sys
-import os
+import sys, random , os
+from benchcode import resize_image, create_quiz_library
 
 
 pygame.init()
@@ -26,18 +26,31 @@ pygame.display.set_caption("QuickGame")
 
 font_style=pygame.font.SysFont("chalkduster",100)
 
+global num_player, quiz_num, quiz_library, quiz
+num_player = 2
+quiz_num = 1
+quiz_library = create_quiz_library("quiz.txt")
+random.shuffle(quiz_library)
+quiz = quiz_library[quiz_num]
 
-def resize_image(image, new_width, new_height):
 
-    resized_image = pygame.transform.scale(image, (new_width, new_height))
-    return resized_image
 
+def get_turn(num_player,turn_num):
+
+    turn_num_calc = turn_num % num_player
+    if turn_num_calc == 0:
+        return num_player
+    else:
+        return turn_num_calc
+    
+
+
+
+#NUMBER_TEAM is a scene that let you put how many team will be player
 
 def number_team():
     from main import main_menu
-
     global num_player
-    num_player = 2
 
     proceedbutton = pygame.image.load(file_path_proceed)
     backbutton = pygame.image.load(file_path_back)
@@ -99,15 +112,12 @@ def number_team():
             pygame.display.flip()
 
 
+#GAME is a scene that showcase the quiz and the answers available !!!NEED TO IMPLEMENT A TIMER FOR THE QUIZ
+
 def game():
     
-    import random
-    from benchcode import create_quiz_library
-    quiz_num = 0
-    quiz_library = create_quiz_library("quiz.txt")
-    random.shuffle(quiz_library)
-    quiz = quiz_library[quiz_num]
-    
+    global quiz_num, quiz_library, quiz
+
     item1Text=font_style.render(quiz[0],True,(255,255,255))
     
 
@@ -132,15 +142,16 @@ def game():
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
                     if item1Text.get_rect(topleft=(310,100)).collidepoint(mouse_pos):
+
                         quiz_num += 1
                         quiz = quiz_library[quiz_num]
                         item1Text=font_style.render(quiz[0],True,(255,255,255))
                         
-
                         item3Text=font_style.render(quiz[1],True,(255,255,255))
                         item4Text=font_style.render(quiz[2],True,(255,255,255))
                         item5Text=font_style.render(quiz[3],True,(255,255,255))
                         item6Text=font_style.render(quiz[4],True,(255,255,255))
+                        team_turn()
 
             screen.fill((0,155,155))
 
@@ -154,7 +165,46 @@ def game():
 
               
             pygame.display.flip()
+
+
+#TEAM_TURN is a scene that displays what team is playing also should add and update scoreboard to it later
+
+def team_turn():
+
+    global num_player, quiz_num
+
+    player_turn = get_turn(num_player,quiz_num)
+    total_team_list = ["RED", "BLUE", "YELLOW", "GREEN"]
+    game_team_list = total_team_list[:num_player]
+
+    item1Text=font_style.render("Tour d'Equipe " + game_team_list[player_turn-1] ,True,(255,255,255))
+    proceedbutton = pygame.image.load(file_path_proceed)
+    resized_proceed = resize_image(proceedbutton,50,50)
     
+    while True:
+
+        for event in pygame.event.get():
+
+            if(event.type==pygame.QUIT):
+                pygame.quit()
+                sys.exit()
+            
+            if(event.type==pygame.MOUSEBUTTONDOWN):
+                
+                if(event.button==1):
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    if resized_proceed.get_rect(topleft=(1200,650)).collidepoint(mouse_pos):
+                        game()
+        
+
+        screen.fill((0,155,155))
+        screen.blit(resized_proceed,(1200,650))
+        screen.blit(item1Text,(310,100))
+        pygame.display.flip()
+
+
+#Scorboard is a scene that displays the scoreboard !!!SCORE SYSTEM NOT IMPLEMENTED YET
 
 def scoreboard():
 
