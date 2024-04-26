@@ -32,6 +32,7 @@ def main_menu():
     item2Text=font_style.render("PARTIE PERSONNALISE", True,(255,255,255))
     item3Text=font_style.render("PARAMETRE", True,(255,255,255))
 
+
     while True:
 
         for event in pygame.event.get():
@@ -64,4 +65,6 @@ def main_menu():
 
             pygame.display.flip()
 
+
+main_menu()
 
