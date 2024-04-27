@@ -32,8 +32,6 @@ quiz_num = 1
 quiz_library = create_quiz_library("quiz.txt")
 random.shuffle(quiz_library)
 quiz = quiz_library[quiz_num]
-display_timer = 0
-DISPLAY_DURATION = 200
 
 
 
@@ -48,20 +46,21 @@ def get_turn(num_player,turn_num):
 def check_answer(ans1,ans2):
     return ans1==ans2
 
+def display_message():
+    message = font_style.render("CORRECT!", True, (255, 255, 255))
+    screen.blit(message, (500, 370))
 
-def display_message(message, color, position):
-    text_surface = font_style.render(message, True, color)
-    screen.blit(text_surface, position)
+def display_message_2():
+    message = font_style.render("INCORRECT!", True, (255, 255, 255))
+    screen.blit(message, (500, 370))
 
-
-def display_correct_message(input_answer, correct_answer):
-    global display_timer
-    if check_answer(input_answer, correct_answer):
-        display_message("CORRECT!", (255, 255, 255), (500, 370))
+def display_correct_message(input_answer,correct_answer):
+    if check_answer(input_answer,correct_answer):
+        display_message()
+        
     else:
-        display_message("INCORRECT!", (255, 255, 255), (500, 370))
-    
-    display_timer = pygame.time.get_ticks()
+        display_message_2()
+
 
 
 
@@ -204,11 +203,6 @@ def game():
             screen.blit(item4Text,(800,200))
             screen.blit(item5Text,(100,500))
             screen.blit(item6Text,(800,500))
-
-            
-            if pygame.time.get_ticks() - display_timer < DISPLAY_DURATION:
-    
-                display_correct_message(input_answer, correct_answer)
 
               
             pygame.display.flip()

@@ -12,7 +12,7 @@ def create_quiz_library(file):
         for text in split_text:
             question.append(text.strip())
 
-        if len(question) != 5:
+        if len(question) != 6 :
             pass
         else:    
             library.append(question.copy())
@@ -35,4 +35,4 @@ def game():
     print(quiz_list)
     print(quiz_list[0])
 
-
+game()

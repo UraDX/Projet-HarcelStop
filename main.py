@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import*
-import sys
-import os
+import sys, os 
+
 
 
 
 pygame.init()
 
 current_directory = os.path.dirname(__file__)
-file_name = "IMAGE\logo.png"
+file_name = "IMAGE\\logo.png"
 file_path = os.path.join(current_directory,file_name)
 
 SCREEN_WIDTH = 1280
@@ -64,4 +64,5 @@ def main_menu():
 
             pygame.display.flip()
 
+main_menu()
 
