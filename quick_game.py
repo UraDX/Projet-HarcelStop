@@ -26,12 +26,16 @@ pygame.display.set_caption("QuickGame")
 
 font_style=pygame.font.SysFont("chalkduster",100)
 
-global num_player, quiz_num, quiz_library, quiz
+global num_player, quiz_num, quiz_library, quiz, score
+
+#QUIZ VAR
 num_player = 2
 quiz_num = 1
 quiz_library = create_quiz_library("quiz.txt")
 random.shuffle(quiz_library)
 quiz = quiz_library[quiz_num]
+
+#TIMER VAR
 display_timer = 0
 DISPLAY_DURATION = 200
 
@@ -45,6 +49,7 @@ def get_turn(num_player,turn_num):
     else:
         return turn_num_calc
     
+
 def check_answer(ans1,ans2):
     return ans1==ans2
 
@@ -53,11 +58,24 @@ def display_message(message, color, position):
     text_surface = font_style.render(message, True, color)
     screen.blit(text_surface, position)
 
+def add_score(num_player, turn_num):
+
+    global score
+
+    if score[-1] < quiz_num:
+        print("add score")
+        team = get_turn(num_player,turn_num)
+        score[team-1] += 1
+        score[-1] += 1
 
 def display_correct_message(input_answer, correct_answer):
+
     global display_timer
+
     if check_answer(input_answer, correct_answer):
+        add_score(num_player, quiz_num)
         display_message("CORRECT!", (255, 255, 255), (500, 370))
+
     else:
         display_message("INCORRECT!", (255, 255, 255), (500, 370))
     
@@ -65,20 +83,28 @@ def display_correct_message(input_answer, correct_answer):
 
 
 
+
 #NUMBER_TEAM is a scene that let you put how many team will be player
 
 def number_team():
-    from main import main_menu
-    global num_player
 
+    from main import main_menu
+
+    global num_player, score
+
+    score = [0] * (num_player+1)
+
+    #Initialize image
     proceedbutton = pygame.image.load(file_path_proceed)
     backbutton = pygame.image.load(file_path_back)
     plus = pygame.image.load(file_path_plus)
     minus = pygame.image.load(file_path_minus)
+
+    #Text UI
     item1Text=font_style.render("COMBIEN D'EQUIPE?",True,(255,255,255))
-    
     item2Text=font_style.render(str(num_player),True,(255,255,255))
 
+    #Resize image
     resized_back = resize_image(backbutton,50,50)
     resized_proceed = resize_image(proceedbutton,50,50)
     resized_plus = resize_image(plus,50,50)
@@ -101,16 +127,20 @@ def number_team():
                         print("minus")
                         if num_player <= 2 :
                             None
+
                         else:
                             num_player -= 1
+                            score.pop()
                         item2Text=font_style.render(str(num_player),True,(255,255,255))
-
+                        
                     elif resized_plus.get_rect(topleft=(1000, 250)).collidepoint(mouse_pos):
                         print("add")
                         if num_player >= 4 :
                             None
+
                         else:
                             num_player += 1
+                            score.append(0)
                         item2Text=font_style.render(str(num_player),True,(255,255,255))
 
                     elif resized_back.get_rect(topleft=(30,650)).collidepoint(mouse_pos):
@@ -135,12 +165,12 @@ def number_team():
 
 def game():
     
-    global quiz_num, quiz_library, quiz, input_answer
+    global quiz_num, quiz_library, quiz, input_answer, score
 
     correct_answer = quiz[5]
-    item1Text=font_style.render(quiz[0],True,(255,255,255))
-    
+    print(score)
 
+    item1Text=font_style.render(quiz[0],True,(255,255,255))
     item3Text=font_style.render(quiz[1],True,(255,255,255))
     item4Text=font_style.render(quiz[2],True,(255,255,255))
     item5Text=font_style.render(quiz[3],True,(255,255,255))
@@ -218,7 +248,7 @@ def game():
 
 def team_turn():
 
-    global num_player, quiz_num
+    global num_player, quiz_num, game_team_list, score
 
     player_turn = get_turn(num_player,quiz_num)
     total_team_list = ["RED", "BLUE", "YELLOW", "GREEN"]
@@ -228,6 +258,16 @@ def team_turn():
     proceedbutton = pygame.image.load(file_path_proceed)
     resized_proceed = resize_image(proceedbutton,50,50)
     
+    team_texts = []
+    for team_name in game_team_list:
+        team_text = font_style.render("Team: " + team_name, True, (255, 255, 255))
+        team_texts.append(team_text)
+
+    team_score_texts = []
+    for team_score in score[:-1]:
+        team_score_text = font_style.render("Score: " + str(team_score), True, (255, 255, 255))
+        team_score_texts.append(team_score_text)
+
     while True:
 
         for event in pygame.event.get():
@@ -248,6 +288,13 @@ def team_turn():
         screen.fill((0,155,155))
         screen.blit(resized_proceed,(1200,650))
         screen.blit(item1Text,(310,100))
+
+        for idx, team_text in enumerate(team_texts):
+            screen.blit(team_text, (100, 200 + idx * 100))
+        
+        for idx, team_text in enumerate(team_score_texts):
+            screen.blit(team_text, (700, 200 + idx * 100))
+
         pygame.display.flip()
 
 
@@ -255,8 +302,24 @@ def team_turn():
 
 def scoreboard():
 
+    global num_player,  game_team_list, score
+
+    total_team_list = ["RED", "BLUE", "YELLOW", "GREEN"]
+    game_team_list = total_team_list[:num_player]
+  
     item1Text=font_style.render("SCOREBOARD",True,(255,255,255))
    
+    team_texts = []
+    for team_name in game_team_list:
+        team_text = font_style.render("Team: " + team_name, True, (255, 255, 255))
+        team_texts.append(team_text)
+
+    team_score_texts = []
+    for team_score in score[:-1]:
+        team_score_text = font_style.render("Score: " + str(team_score), True, (255, 255, 255))
+        team_score_texts.append(team_score_text)
+
+
     while True:
         
         for event in pygame.event.get():
@@ -264,10 +327,17 @@ def scoreboard():
                 pygame.quit()
                 sys.exit()
 
-            screen.fill((0,155,155))
-            screen.blit(item1Text,(310,100))
-       
-              
-            pygame.display.flip()
+        screen.fill((0,155,155))
+        
+        screen.blit(item1Text,(310,100))
+
+        for idx, team_text in enumerate(team_texts):
+                screen.blit(team_text, (100, 200 + idx * 100))
+        
+        for idx, team_text in enumerate(team_score_texts):
+                screen.blit(team_text, (700, 200 + idx * 100))
+
+             
+        pygame.display.flip()
     
 

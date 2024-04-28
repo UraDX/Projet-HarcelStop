@@ -35,4 +35,7 @@ def game():
     print(quiz_list)
     print(quiz_list[0])
 
-game()
+#game()
+
+list = [0]*4
+print(list)
