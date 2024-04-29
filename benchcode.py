@@ -28,7 +28,6 @@ def resize_image(image, new_width, new_height):
     return resized_image
 
 
-
 def game():
     quiz_list = create_quiz_library("quiz.txt")
     random.shuffle(quiz_list)
@@ -37,5 +36,13 @@ def game():
 
 #game()
 
-list = [0]*4
-print(list)
+import keyboard
+
+def print_pressed_keys():
+    while True:
+        event = keyboard.read_event()
+        if event.event_type == keyboard.KEY_DOWN:
+            print(f"Key Pressed: {event.name}")
+
+# Call the function to start printing pressed keys
+#print_pressed_keys()

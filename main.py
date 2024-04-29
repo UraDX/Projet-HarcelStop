@@ -40,6 +40,7 @@ def main_menu():
             if(event.type==pygame.QUIT):
                 pygame.quit()
                 sys.exit()
+
             if(event.type==pygame.MOUSEBUTTONDOWN):
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
@@ -67,5 +68,4 @@ def main_menu():
 
 main_menu()
 
-main_menu()
 

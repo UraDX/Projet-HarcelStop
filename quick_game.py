@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import subprocess
 import sys, random , os , time
 from benchcode import resize_image, create_quiz_library
@@ -11,11 +12,13 @@ file_back = "IMAGE\\back_button.png"
 file_proceed = "IMAGE\\proceed_button.png"
 file_plus = "IMAGE\\plus.png"
 file_minus = "IMAGE\\minus.png"
+file_replay = "IMAGE\\replay_button.png"
 
 file_path_back = os.path.join(current_directory,file_back)
 file_path_proceed = os.path.join(current_directory,file_proceed)
 file_path_plus = os.path.join(current_directory,file_plus)
 file_path_minus = os.path.join(current_directory,file_minus)
+file_path_replay = os.path.join(current_directory,file_replay)
 
 
 SCREEN_WIDTH = 1280
@@ -54,9 +57,16 @@ def check_answer(ans1,ans2):
     return ans1==ans2
 
 
+def display_message_key_pressed(message, color, position,duration):
+    text_surface = font_style.render(message, True, color)
+    screen.blit(text_surface, position)
+    pygame.display.flip()
+    pygame.time.delay(duration)
+
 def display_message(message, color, position):
     text_surface = font_style.render(message, True, color)
     screen.blit(text_surface, position)
+
 
 def add_score(num_player, turn_num):
 
@@ -90,7 +100,9 @@ def number_team():
 
     from main import main_menu
 
-    global num_player, score
+    global num_player, score, quiz_num
+
+    quiz_num = 1
 
     score = [0] * (num_player+1)
 
@@ -158,6 +170,7 @@ def number_team():
             screen.blit(resized_back,(30,650))
             screen.blit(resized_proceed,(1200,650))
 
+            pygame.display.update()
             pygame.display.flip()
 
 
@@ -165,6 +178,8 @@ def number_team():
 
 def game():
     
+    #from benchcode import print_pressed_keys
+
     global quiz_num, quiz_library, quiz, input_answer, score
 
     correct_answer = quiz[5]
@@ -180,7 +195,9 @@ def game():
         
         for event in pygame.event.get():
 
+
             screen.fill((0,155,155))
+
 
             if not quiz_num < 15:
                 scoreboard()
@@ -188,6 +205,17 @@ def game():
             if(event.type==pygame.QUIT):
                 pygame.quit()
                 sys.exit()
+
+            if(event.type==pygame.KEYDOWN):
+
+                if event.key == K_1:
+                    display_message_key_pressed("RED",(255, 255, 255), (500, 370),500)
+                elif event.key == K_2:
+                    display_message_key_pressed("BLUE",(255, 255, 255), (500, 370),500)
+                elif event.key == K_3:
+                    display_message_key_pressed("YELLOW",(255, 255, 255), (500, 370),500)
+                elif event.key == K_4:
+                    display_message_key_pressed("GREEN",(255, 255, 255), (500, 370),500)
 
             if(event.type==pygame.MOUSEBUTTONDOWN):
 
@@ -223,22 +251,19 @@ def game():
                     elif item6Text.get_rect(topleft=(800,500)).collidepoint(mouse_pos):
                         input_answer = quiz[4]
                         print("ANSWER 4 PRESSED")
-                        display_correct_message(input_answer,correct_answer)
-
-
+                        display_correct_message(input_answer,correct_answer) 
 
             screen.blit(item1Text,(310,100))
-
 
             screen.blit(item3Text,(100,200))
             screen.blit(item4Text,(800,200))
             screen.blit(item5Text,(100,500))
             screen.blit(item6Text,(800,500))
-
-            
+    
             if pygame.time.get_ticks() - display_timer < DISPLAY_DURATION:
     
                 display_correct_message(input_answer, correct_answer)
+
 
               
             pygame.display.flip()
@@ -302,12 +327,20 @@ def team_turn():
 
 def scoreboard():
 
+    from main import main_menu
+
     global num_player,  game_team_list, score
 
     total_team_list = ["RED", "BLUE", "YELLOW", "GREEN"]
     game_team_list = total_team_list[:num_player]
   
+    backbutton = pygame.image.load(file_path_back)
+    replaybutton = pygame.image.load(file_path_replay)
+
     item1Text=font_style.render("SCOREBOARD",True,(255,255,255))
+
+    resized_back = resize_image(backbutton,50,50)
+    resized_replay = resize_image(replaybutton,50,50)
    
     team_texts = []
     for team_name in game_team_list:
@@ -326,10 +359,24 @@ def scoreboard():
             if(event.type==pygame.QUIT):
                 pygame.quit()
                 sys.exit()
+        
+            if(event.type==pygame.MOUSEBUTTONDOWN):
+
+                if(event.button==1):
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    if resized_back.get_rect(topleft=(30,650)).collidepoint(mouse_pos):
+                        main_menu()
+
+                    elif resized_replay.get_rect(topleft=(1200,650)).collidepoint(mouse_pos):
+                        number_team()
+                    
 
         screen.fill((0,155,155))
         
         screen.blit(item1Text,(310,100))
+        screen.blit(resized_back,(30,650))
+        screen.blit(resized_replay,(1200,650))
 
         for idx, team_text in enumerate(team_texts):
                 screen.blit(team_text, (100, 200 + idx * 100))

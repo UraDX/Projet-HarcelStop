@@ -34,7 +34,6 @@ random.shuffle(quiz_library)
 quiz = quiz_library[quiz_num]
 
 
-
 def get_turn(num_player,turn_num):
 
     turn_num_calc = turn_num % num_player
