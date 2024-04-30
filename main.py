@@ -23,6 +23,7 @@ pygame.display.set_caption("Game Menu")
 def main_menu():
     from options import options
     from quick_game import number_team
+    from custom_game import setting_game
 
     font_style=pygame.font.SysFont("chalkduster",100)
     logo= pygame.image.load(file_path)
@@ -47,14 +48,17 @@ def main_menu():
 
                     #IMPLEMENTED STILL NEED WORKS
                     if item1Text.get_rect(topleft=(400, 400)).collidepoint(mouse_pos):
+                        print("QUICK GAME")
                         number_team()
 
                     #NOT IMPLEMENTED 
                     elif item2Text.get_rect(topleft=(250, 480)).collidepoint(mouse_pos):
                         print("CUSTOM GAME")
+                        setting_game()
                     
                     #IMPLEMENTED STILL NEED WORKS
                     elif item3Text.get_rect(topleft=(450, 560)).collidepoint(mouse_pos):
+                        print("SETTING")
                         options()
             
             screen.fill((0,155,155))
