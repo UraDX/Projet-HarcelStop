@@ -63,9 +63,10 @@ def display_message_key_pressed(message, color, position,duration):
     pygame.display.flip()
     pygame.time.delay(duration)
 
-def display_message(message, color, position):
+def display_message(message, color, position, duration=500):
     text_surface = font_style.render(message, True, color)
     screen.blit(text_surface, position)
+    pygame.time.delay(duration)
 
 
 def add_score(num_player, turn_num):
@@ -191,6 +192,12 @@ def game():
     item5Text=font_style.render(quiz[3],True,(255,255,255))
     item6Text=font_style.render(quiz[4],True,(255,255,255))
 
+    key_pressed = False
+    timer_started = False  
+    start_time = 0 
+    timer_duration = 10000
+    button_enabled = False
+
     while True:
         
         for event in pygame.event.get():
@@ -206,17 +213,34 @@ def game():
                 pygame.quit()
                 sys.exit()
 
-            if(event.type==pygame.KEYDOWN):
-
+            if(event.type==pygame.KEYDOWN) and not key_pressed and button_enabled:
+                
                 if event.key == K_1:
+                    key_pressed = True
                     display_message_key_pressed("RED",(255, 255, 255), (500, 370),500)
+                    
                 elif event.key == K_2:
+                    key_pressed = True
                     display_message_key_pressed("BLUE",(255, 255, 255), (500, 370),500)
+                   
                 elif event.key == K_3:
+                    key_pressed = True
                     display_message_key_pressed("YELLOW",(255, 255, 255), (500, 370),500)
+                    
                 elif event.key == K_4:
+                    key_pressed = True
                     display_message_key_pressed("GREEN",(255, 255, 255), (500, 370),500)
+                
+            if not timer_started:
+                
+                timer_started = True
+                start_time = pygame.time.get_ticks() 
 
+            if pygame.time.get_ticks() - start_time >= timer_duration: 
+                display_message("JEOPARDY", (255, 255, 255), (500, 370))  
+                button_enabled = True  
+                timer_started = False  
+        
             if(event.type==pygame.MOUSEBUTTONDOWN):
 
                 if(event.button==1):
@@ -237,22 +261,27 @@ def game():
                         input_answer = quiz[1]
                         print("ANSWER 1 PRESSED")
                         display_correct_message(input_answer,correct_answer)
+                        key_pressed = False
 
                     elif item4Text.get_rect(topleft=(800,200)).collidepoint(mouse_pos):
                         input_answer = quiz[2]
                         print("ANSWER 2 PRESSED")
                         display_correct_message(input_answer,correct_answer)
+                        key_pressed = False
 
                     elif item5Text.get_rect(topleft=(100,500)).collidepoint(mouse_pos):
                         input_answer = quiz[3]
                         print("ANSWER 3 PRESSED")
                         display_correct_message(input_answer,correct_answer)
+                        key_pressed = False
 
                     elif item6Text.get_rect(topleft=(800,500)).collidepoint(mouse_pos):
                         input_answer = quiz[4]
                         print("ANSWER 4 PRESSED")
                         display_correct_message(input_answer,correct_answer) 
+                        key_pressed = False
 
+                    
             screen.blit(item1Text,(310,100))
 
             screen.blit(item3Text,(100,200))

@@ -28,7 +28,7 @@ def main_menu():
     font_style=pygame.font.SysFont("chalkduster",100)
     logo= pygame.image.load(file_path)
 
-
+    
     item1Text=font_style.render("PARTIE RAPIDE",True,(255,255,255))
     item2Text=font_style.render("PARTIE PERSONNALISE", True,(255,255,255))
     item3Text=font_style.render("PARAMETRE", True,(255,255,255))
