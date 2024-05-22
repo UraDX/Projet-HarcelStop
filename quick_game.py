@@ -58,15 +58,16 @@ def check_answer(ans1,ans2):
 
 
 def display_message_key_pressed(message, color, position,duration):
-    text_surface = font_style.render(message, True, color)
+    screen.fill(color)
+    text_surface = font_style.render(message, True, (250,250,250))
     screen.blit(text_surface, position)
     pygame.display.flip()
+
     pygame.time.delay(duration)
 
-def display_message(message, color, position, duration=500):
+def display_message(message, color, position):
     text_surface = font_style.render(message, True, color)
     screen.blit(text_surface, position)
-    pygame.time.delay(duration)
 
 
 def add_score(num_player, turn_num):
@@ -81,10 +82,26 @@ def add_score(num_player, turn_num):
 
 def display_correct_message(input_answer, correct_answer):
 
+    global display_timer, score_added
+
+    if check_answer(input_answer, correct_answer):
+        if not score_added:
+            add_score(num_player, quiz_num)
+            score_added = True
+        display_message("CORRECT!", (255, 255, 255), (500, 370))
+
+    else:
+        first_buzz = True
+        display_message("INCORRECT!", (255, 255, 255), (500, 370))
+    
+    display_timer = pygame.time.get_ticks()
+
+def display_correct_message_buzzed(input_answer, correct_answer):
+
     global display_timer
 
     if check_answer(input_answer, correct_answer):
-        add_score(num_player, quiz_num)
+        add_score(player_buzz, quiz_num)
         display_message("CORRECT!", (255, 255, 255), (500, 370))
 
     else:
@@ -181,7 +198,7 @@ def game():
     
     #from benchcode import print_pressed_keys
 
-    global quiz_num, quiz_library, quiz, input_answer, score
+    global quiz_num, quiz_library, quiz, input_answer, score, player_buzz, first_buzz, score_added
 
     correct_answer = quiz[5]
     print(score)
@@ -192,11 +209,17 @@ def game():
     item5Text=font_style.render(quiz[3],True,(255,255,255))
     item6Text=font_style.render(quiz[4],True,(255,255,255))
 
+    first_buzz = False
+    score_added = False
     key_pressed = False
+
+    button_enabled = False
+    player_buzz = None
+    stop_display = False
+
     timer_started = False  
     start_time = 0 
-    timer_duration = 10000
-    button_enabled = False
+    timer_duration = 20
 
     while True:
         
@@ -217,30 +240,29 @@ def game():
                 
                 if event.key == K_1:
                     key_pressed = True
-                    display_message_key_pressed("RED",(255, 255, 255), (500, 370),500)
+                    player_buzz = 1
+                    display_message_key_pressed("RED",(255, 0, 0), (500, 370),500)
                     
                 elif event.key == K_2:
                     key_pressed = True
-                    display_message_key_pressed("BLUE",(255, 255, 255), (500, 370),500)
+                    player_buzz = 2
+                    display_message_key_pressed("BLUE",(0, 0, 255), (500, 370),500)
                    
-                elif event.key == K_3:
+                elif event.key == K_3 and len(score) >= 4:
                     key_pressed = True
-                    display_message_key_pressed("YELLOW",(255, 255, 255), (500, 370),500)
+                    player_buzz = 3
+                    display_message_key_pressed("YELLOW",(255, 255, 0), (500, 370),500)
                     
-                elif event.key == K_4:
+                elif event.key == K_4 and len(score) >= 5:
                     key_pressed = True
-                    display_message_key_pressed("GREEN",(255, 255, 255), (500, 370),500)
+                    player_buzz = 4
+                    display_message_key_pressed("GREEN",(0, 255, 0), (500, 370),500)
                 
-            if not timer_started:
-                
+            if not timer_started:   
                 timer_started = True
-                start_time = pygame.time.get_ticks() 
+                start_time = time.time()
+            
 
-            if pygame.time.get_ticks() - start_time >= timer_duration: 
-                display_message("JEOPARDY", (255, 255, 255), (500, 370))  
-                button_enabled = True  
-                timer_started = False  
-        
             if(event.type==pygame.MOUSEBUTTONDOWN):
 
                 if(event.button==1):
@@ -258,28 +280,48 @@ def game():
                         team_turn()
 
                     elif item3Text.get_rect(topleft=(100,200)).collidepoint(mouse_pos):
+                        
                         input_answer = quiz[1]
                         print("ANSWER 1 PRESSED")
-                        display_correct_message(input_answer,correct_answer)
+                        if key_pressed:
+                            display_correct_message_buzzed(input_answer,correct_answer)
+                        else:
+                            display_correct_message(input_answer,correct_answer) 
                         key_pressed = False
 
                     elif item4Text.get_rect(topleft=(800,200)).collidepoint(mouse_pos):
                         input_answer = quiz[2]
                         print("ANSWER 2 PRESSED")
-                        display_correct_message(input_answer,correct_answer)
+                        if key_pressed:
+                            display_correct_message_buzzed(input_answer,correct_answer)
+                        else:
+                            display_correct_message(input_answer,correct_answer) 
                         key_pressed = False
 
                     elif item5Text.get_rect(topleft=(100,500)).collidepoint(mouse_pos):
                         input_answer = quiz[3]
                         print("ANSWER 3 PRESSED")
-                        display_correct_message(input_answer,correct_answer)
+                        if key_pressed:
+                            display_correct_message_buzzed(input_answer,correct_answer)
+                        else:
+                            display_correct_message(input_answer,correct_answer) 
                         key_pressed = False
 
                     elif item6Text.get_rect(topleft=(800,500)).collidepoint(mouse_pos):
                         input_answer = quiz[4]
                         print("ANSWER 4 PRESSED")
-                        display_correct_message(input_answer,correct_answer) 
+                        if key_pressed:
+                            display_correct_message_buzzed(input_answer,correct_answer)
+                        else:
+                            display_correct_message(input_answer,correct_answer) 
                         key_pressed = False
+           
+            
+            if (time.time() - start_time >= timer_duration and not stop_display) or first_buzz: 
+                display_message_key_pressed("JEOPARDY",(255, 0, 255), (500, 370),500) 
+                button_enabled = True
+                timer_started = False
+                stop_display = True
 
                     
             screen.blit(item1Text,(310,100))
@@ -307,6 +349,9 @@ def team_turn():
     player_turn = get_turn(num_player,quiz_num)
     total_team_list = ["RED", "BLUE", "YELLOW", "GREEN"]
     game_team_list = total_team_list[:num_player]
+
+    if score[-1]+1 < quiz_num:
+        score[-1] += 1
 
     item1Text=font_style.render("Tour d'Equipe " + game_team_list[player_turn-1] ,True,(255,255,255))
     proceedbutton = pygame.image.load(file_path_proceed)

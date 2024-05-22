@@ -1,5 +1,7 @@
 import random 
 import pygame
+from pyexcel_ods import get_data
+
 
 def create_quiz_library(file):
     library = []
@@ -21,6 +23,12 @@ def create_quiz_library(file):
     txtfile.close()
     return library 
 
+def create_quiz_library_ods(file):
+    library = []
+    question = []
+    txtfile = open(file,"r")
+
+
 
 def resize_image(image, new_width, new_height):
 
@@ -28,13 +36,14 @@ def resize_image(image, new_width, new_height):
     return resized_image
 
 
-def game():
+def quiz_create():
     quiz_list = create_quiz_library("quiz.txt")
-    random.shuffle(quiz_list)
-    print(quiz_list)
-    print(quiz_list[0])
+    #random.shuffle(quiz_list)
+    #print(quiz_list)
+    #print(quiz_list[0])
 
-#game()
+#quiz_create()
+
 
 import keyboard
 

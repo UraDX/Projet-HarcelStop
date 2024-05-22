@@ -180,7 +180,6 @@ def setting_game():
 
                         else:
                             quiz_max -= 1
-                            score.pop()
                         item3Num=font_style.render(str(quiz_max),True,(255,255,255))
                         
                     elif resized_plus_1.get_rect(topleft=(1000, 300)).collidepoint(mouse_pos):
@@ -189,7 +188,6 @@ def setting_game():
                             None
                         else:
                             quiz_max += 1
-                            score.append(0)
                         item3Num=font_style.render(str(quiz_max),True,(255,255,255))
                     
                     if resized_minus_2.get_rect(topleft=(700, 350)).collidepoint(mouse_pos):
@@ -198,7 +196,7 @@ def setting_game():
                             None
                         else:
                             minuteur -= 1
-                            score.pop()
+                           
                         item4Num=font_style.render(str(minuteur),True,(255,255,255))
                         
                     elif resized_plus_2.get_rect(topleft=(1000, 350)).collidepoint(mouse_pos):
@@ -207,7 +205,7 @@ def setting_game():
                             None
                         else:
                             minuteur += 1
-                            score.append(0)
+                      
                         item4Num=font_style.render(str(minuteur),True,(255,255,255))
 
 
@@ -342,6 +340,11 @@ def game():
 def team_turn():
 
     global num_player, quiz_num, game_team_list, score
+
+    print("num_player", num_player)
+    print("quiz_max", quiz_max)
+    
+    
 
     player_turn = get_turn(num_player,quiz_num)
     total_team_list = ["RED", "BLUE", "YELLOW", "GREEN"]
