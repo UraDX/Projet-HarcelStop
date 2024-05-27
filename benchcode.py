@@ -1,4 +1,4 @@
-import random 
+import os
 import pygame
 from pyexcel_ods import get_data
 
@@ -23,11 +23,40 @@ def create_quiz_library(file):
     txtfile.close()
     return library 
 
-def create_quiz_library_ods(file):
-    library = []
-    question = []
-    txtfile = open(file,"r")
 
+import csv
+
+current_directory = os.path.dirname(__file__)
+file_quiz = "quiz.csv"
+file_quiz_path = os.path.join(current_directory,file_quiz)
+with open(file_quiz, newline= "",encoding="utf-8-sig") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        print(row)
+
+
+with open(file_quiz, newline='', encoding="utf-8-sig") as f:
+    reader = csv.reader(f)
+    data = list(reader)
+
+print(data)
+
+
+                 
+
+def create_quiz_library_ods(filename):
+    Q = []
+    BR = []
+    MR = []
+    #for c in filename:
+        #c{"QUESTION"}
+        #c{"BONNES_REPONSES"}
+        #c{"MAUVAISES_REPONSES"}
+    #print("QST",Q)
+    #print("BR", BR)
+    #print("MR", MR)
+
+#print(create_quiz_library_ods(reader))
 
 
 def resize_image(image, new_width, new_height):
@@ -55,3 +84,5 @@ def print_pressed_keys():
 
 # Call the function to start printing pressed keys
 #print_pressed_keys()
+
+
