@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
-import subprocess
-import sys, random , os , time
+import sys, random , os 
 from benchcode import resize_image, create_quiz_library
 
 
@@ -95,7 +94,7 @@ def display_correct_message(input_answer, correct_answer):
 
 
 
-#Setting_Game is a scene that let you put edit the setting for the player
+#setting_game est une scène qui vous permet de modifier les paramètres du joueur
 
 def setting_game():
 
@@ -108,13 +107,13 @@ def setting_game():
 
     score = [0] * (num_player+1)
 
-    #Initialize image
+    #Initialiser l'image
     proceedbutton = pygame.image.load(file_path_proceed)
     backbutton = pygame.image.load(file_path_back)
     plus = pygame.image.load(file_path_plus)
     minus = pygame.image.load(file_path_minus)
 
-    #Text UI
+    #Interface utilisateur texte
     item1Text=font_style.render("Personnalise",True,(255,255,255))
     item2Text=font_style.render("Nombre Joueur",True,(255,255,255))
     item2Num=font_style.render(str(num_player),True,(255,255,255))
@@ -129,7 +128,7 @@ def setting_game():
     item6Text=font_style.render("Multiplicateur de Point",True,(255,255,255))
     
 
-    #Resize image
+    #Redimensionner l'image
     resized_back = resize_image(backbutton,50,50)
     resized_proceed = resize_image(proceedbutton,50,50)
 
@@ -242,11 +241,10 @@ def setting_game():
             pygame.display.flip()
 
 
-#GAME is a scene that showcase the quiz and the answers available !!!NEED TO IMPLEMENT A TIMER FOR THE QUIZ
+#GAME est une scène qui présente le quiz et les réponses disponibles 
 
 def game():
     
-    #from benchcode import print_pressed_keys
 
     global quiz_num, quiz_library, quiz, input_answer, score
 
@@ -335,7 +333,7 @@ def game():
             pygame.display.flip()
 
 
-#TEAM_TURN is a scene that displays what team is playing also should add and update scoreboard to it later
+#TEAM_TURN est une scène qui affiche quelle équipe joue et devrait également y ajouter et mettre à jour le tableau de bord plus tard.
 
 def team_turn():
 
@@ -394,7 +392,7 @@ def team_turn():
         pygame.display.flip()
 
 
-#Scorboard is a scene that displays the scoreboard !!!SCORE SYSTEM NOT IMPLEMENTED YET
+#ccorboard est une scène qui affiche le tableau de bord
 
 def scoreboard():
 

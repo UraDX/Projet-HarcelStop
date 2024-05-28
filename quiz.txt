@@ -1,17 +1,17 @@
-QUESTION 1 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 4
-QUESTION 2 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 3
-QUESTION 3 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 2
-QUESTION 4 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 3
-QUESTION 5 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 1
-QUESTION 6 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 3
-QUESTION 7 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 4
-QUESTION 8 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 1
-QUESTION 9 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 2
-QUESTION 10 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 3
-QUESTION 11 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 1
-QUESTION 12 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 3
-QUESTION 13 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 4
-QUESTION 14 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 2
-QUESTION 15 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 2
-QUESTION 16 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 1
-QUESTION 17 | ANSWER 1 | ANSWER 2 | ANSWER 3 | ANSWER 4 | ANSWER 3
+Citez les 3 acteurs du harcèlement? | Victime, harceleur témoin | Victime harceleur facteur | Le professeur, le conseiller principal d’écucation, la cantine |  | 13
+Le professeur ne m’interroge jamais quand je lève la main. | C’est du harcèlement il ne m’aime pas | Il ne me voit pas je suis au fond de la classe | Il ne m’interroge pas car j’ai toujours les bonnes réponses |  | 1
+Plein d’élèves ont l’habitude de me toucher les fesses dans les escaliers | Je fais comme si de rien n’était | C’est interdit j’en parle à un adulte | C’est rien de grave' |  | 2
+Quel numéro peut-on appeler si on est témoin ou victime de harcèlement scolaire? | 3018 | 3077 | 112 | 911 | 13
+Où se produit le harcèlement scolaire? | C’est seulement à l’école | Que dans la cour | C’est à l’école et sur les réseaux sociaux |  | 3
+QUESTION 6 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 3
+QUESTION 7 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 4
+QUESTION 8 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 1
+QUESTION 9 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 2
+QUESTION 10 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 3
+QUESTION 11 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 1
+QUESTION 12 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 3
+QUESTION 13 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 4
+QUESTION 14 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 2
+QUESTION 15 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 2
+QUESTION 16 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 1
+QUESTION 17 | REPONSE 1 | REPONSE 2 | REPONSE 3 | REPONSE 4 | REPONSE 3

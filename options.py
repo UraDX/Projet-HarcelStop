@@ -18,7 +18,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Game Options")
 
 
-#OPTIONS is a scene that showcase the configuration you can manipulate
+#OPTIONS est une scène qui présente la configuration que vous pouvez manipuler
 
 def options():
     from main import main_menu
@@ -43,19 +43,19 @@ def options():
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
 
-                    #Need to implement a SFX Volume Bar aswell as get some SFX
+                    #Besoin d'implémenter une barre de volume SFX et d'obtenir des SFX
                     if item1Text.get_rect(topleft=(150, 100)).collidepoint(mouse_pos):
                         print("SFX Volume")
                     
-                    #Need to implement a BGM Volume Bar aswell as get some BGM
+                    #Besoin d'implémenter une barre de volume BGM et d'obtenir de la musique de fond
                     elif item2Text.get_rect(topleft=(150, 180)).collidepoint(mouse_pos):
                         print("BGM Volume")
 
-                    #Need to implement a VO Volume Bar aswell as get some VO
+                    #Besoin d'implémenter une barre de volume VO et d'obtenir de la VO
                     elif item3Text.get_rect(topleft=(150, 260)).collidepoint(mouse_pos):
                         print("VO Volume")
 
-                    #Need to implement a Add Quiz section that opens a text file and merge it together or just open a txt
+                    #Besoin d'implémenter une section ajouter un quiz qui ouvre un fichier texte et le fusionne ou ouvre simplement un txt
                     elif item4Text.get_rect(topleft=(150, 340)).collidepoint(mouse_pos):
                         print("Add Quiz")
 

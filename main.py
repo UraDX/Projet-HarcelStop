@@ -18,7 +18,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Game Menu")
 
 
-#MAIN_MENU a scene that showcase QUICK_GAME, CUSTOM_GAME and SETTINGS
+#MAIN_MENU une scène présentant QUICK_GAME, CUSTOM_GAME et SETTINGS
 
 def main_menu():
     from options import options
@@ -46,17 +46,14 @@ def main_menu():
                 if(event.button==1):
                     mouse_pos = pygame.mouse.get_pos()
 
-                    #IMPLEMENTED STILL NEED WORKS
                     if item1Text.get_rect(topleft=(400, 400)).collidepoint(mouse_pos):
                         print("QUICK GAME")
                         number_team()
 
-                    #NOT IMPLEMENTED 
                     elif item2Text.get_rect(topleft=(250, 480)).collidepoint(mouse_pos):
                         print("CUSTOM GAME")
                         setting_game()
                     
-                    #IMPLEMENTED STILL NEED WORKS
                     elif item3Text.get_rect(topleft=(450, 560)).collidepoint(mouse_pos):
                         print("SETTING")
                         options()
@@ -70,6 +67,6 @@ def main_menu():
 
             pygame.display.flip()
 
-main_menu()
 
+main_menu()
 
